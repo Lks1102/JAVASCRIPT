@@ -14,6 +14,8 @@
                 const btnData = document.getElementById('btnData');
                 btnData.addEventListener('click', ()=>{
 
+                    
+
                     // AJAX 데이터 요청
                     const xhr = new XMLHttpRequest();
                     xhr.open('GET', 'http://chhak.click/data/user.json');
@@ -41,6 +43,48 @@
 
                     } // onreadystatechange end
                 }); // addEventListener end
+                
+                document.getElementById('btnUsers').onclick = function(e){
+                    e.preventDefault();
+                    
+                    // promise
+                    fetch('http://chhak.click/data/users.json')
+                        .then((response)=> response.json())
+                        .then((data)=>{
+                            console.log(data);
+
+                            const table = document.getElementsByTagName('table')[0];
+
+                            for(let user of data.users){
+                                console.log(user);
+                                const tr = document.createElement('tr');
+                                const td1 = document.createElement('td');
+                                const td2 = document.createElement('td');
+                                const td3 = document.createElement('td');
+                                const td4 = document.createElement('td');
+
+                                td1.innerText = user.uid;
+                                td2.innerText = user.name;
+                                td3.innerText = user.hp;
+                                td4.innerText = user.age;
+
+
+                                table.appendChild(td1);
+                                table.appendChild(td2);
+                                table.appendChild(td3);
+                                table.appendChild(td4);
+
+                                table.appendChild(tr);
+
+                            }
+
+                        })
+                        .catch(()=>{
+                            console.log('요청실패...');
+                        });
+                          
+                }// btnUsers onclick end
+                    
             } // window.onload end
             
         </script>
@@ -56,6 +100,16 @@
             휴대폰 : <span></span><br>
             나이 : <span></span><br>
         </p>
+
+        <a href="#" id="btnUsers">users 데이터 요청</a>
+        <table border="1">
+            <tr>
+                <th>아이디</th>
+                <th>이름</th>
+                <th>휴대폰</th>
+                <th>나이</th>
+            </tr>
+        </table>
 
 
     </body>
