@@ -39,7 +39,7 @@
                 });
 
                 // promise를 이용한 비동기 방식 처리
-                function step1(msg){
+                async function step1(msg){
                     
                     return new Promise((resolve, reject)=>{
                         setTimeout(() => {
@@ -48,7 +48,7 @@
                     });
                 }
 
-                function step2(msg){
+                async function step2(msg){
                     console.log(msg);
 
                     return new Promise((resolve, reject)=>{
@@ -58,7 +58,7 @@
                     });
                 }
 
-                function step3(msg){
+                async function step3(msg){
                     console.log(msg);
 
                     return new Promise((resolve, reject)=>{
@@ -75,7 +75,19 @@
                         console.log(msg);
                     });
 
-        </script>
+                // async/await 구문을 활용한 비동기 처리
 
+                async function strat(){
+                    const result1 = await step1();
+                    const result2 = await step2(result1);
+                    const result3 = await step3(result2);
+                    console.log(result3);
+                }
+
+                setTimeout(() => {
+                    strat();
+                }, 7000);
+
+        </script>
     </body>
 </html>
